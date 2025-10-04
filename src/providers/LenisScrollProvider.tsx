@@ -2,7 +2,8 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Lenis, { LenisOptions } from "@studio-freight/lenis";
+import Lenis from "@studio-freight/lenis";
+import type { LenisOptions } from "@studio-freight/lenis";
 
 interface LenisScrollProviderProps {
   children: React.ReactNode;
@@ -13,18 +14,22 @@ export default function LenisScrollProvider({ children }: LenisScrollProviderPro
     const options: LenisOptions = {
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
+      // REMOVIDO: orientation: "vertical", (Não faz parte de LenisOptions)
+      gestureOrientation: "vertical", // MANTIDO: 'gestureOrientation' é uma opção válida para o Lenis
       smoothWheel: true,
-      wheelMultiplier: 1, // substitui mouseMultiplier
+      wheelMultiplier: 1,
       touchMultiplier: 2,
       infinite: false,
     };
 
     const lenis = new Lenis(options);
 
-    // Inicia a animação do Lenis
-    lenis.start();
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
 
     return () => {
       lenis.destroy();
