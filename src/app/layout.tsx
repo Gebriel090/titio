@@ -30,10 +30,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        // REMOVIDO: style={{ scrollBehavior: 'smooth' }}
-      >
+<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+
         <LenisScrollProvider>
           {children}
         </LenisScrollProvider>

@@ -20,10 +20,19 @@
   }
 }
 
+html, body {
+  min-height: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto; /* permite rolagem */
+}
+
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  /* Garanta que o background-color do body não seja fixo para que Lenis possa manipulá-lo se necessário */
 }
 
 :root {
@@ -118,3 +127,33 @@ body {
 iframe {
   background-color: #000 !important;
 }
+.particle-background,
+.scrolling-text-banner {
+  position: fixed; /* ou absolute */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* atrás do conteúdo */
+  pointer-events: none; /* NÃO BLOQUEIA O SCROLL/MOUSE */
+}
+
+/*
+ * DICA CRÍTICA: Verifique o CSS dos seus componentes de fundo!
+ * Se você tiver componentes como 'ParticleBackground' ou 'ScrollingTextBanner'
+ * que cobrem a tela inteira (e geralmente usam 'position: fixed' ou 'absolute'),
+ * eles PRECISAM ter 'pointer-events: none;' para permitir que o mouse
+ * interaja com o conteúdo abaixo deles e que o scroll funcione.
+ *
+ * Exemplo de como aplicar (adapte para suas classes):
+ *
+ * .seu-componente-de-fundo {
+ *   position: fixed; // ou absolute
+ *   top: 0;
+ *   left: 0;
+ *   width: 100vw;
+ *   height: 100vh;
+ *   z-index: -1; // Garanta que esteja atrás do conteúdo interativo
+ *   pointer-events: none; // ESTA LINHA É A CHAVE!
+ * }
+ */

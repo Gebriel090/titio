@@ -20,7 +20,10 @@ interface TrailParticle {
 
 const WeakManSurvey: React.FC = () => {
   const [checkedOptions, setCheckedOptions] = useState<string[]>([]);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }); // Mantido para o card, se necessário
+const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ 
+  x: 0, 
+  y: 0 
+});
   const [trailParticles, setTrailParticles] = useState<TrailParticle[]>([]); // Novo estado para as partículas do rastro
   const lastParticleTimeRef = useRef(0); // Para limitar a criação de partículas (throttle)
   const particleTimeoutRefs = useRef<Record<number, NodeJS.Timeout>>({}); // Para limpar os timeouts das partículas
