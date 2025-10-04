@@ -1,0 +1,113 @@
+/* Container principal do cartão da imagem */
+.image-card-wrapper {
+  /* Dimensões e posicionamento básico para exemplo */
+  width: 300px;
+  height: 350px;
+  margin: 40px auto; /* Centraliza para demonstração */
+  
+  position: relative;
+  transition: transform 0.2s ease-out; /* Transição suave para a inclinação */
+  transform-style: preserve-3d; /* Habilita transformações 3D para os filhos */
+  cursor: pointer; /* Indica que é interativo */
+  border-radius: 12px; /* Cantos arredondados */
+}
+
+/* Efeito de camadas e sombra */
+.image-card-layers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* Simula camadas com múltiplas sombras */
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.4), /* Sombra principal para profundidade */
+    0 0 0 5px rgba(255, 255, 255, 0.1), /* Primeira "borda" clara (camada) */
+    0 0 0 10px rgba(255, 255, 255, 0.05); /* Segunda "borda" clara (camada) */
+  border-radius: 12px; /* Cantos arredondados para as camadas */
+  overflow: hidden; /* Importante para clip-path e efeitos de fade */
+  background-color: #333; /* Cor de fundo para as partes visíveis das camadas */
+}
+
+/* Conteúdo interno do cartão (onde a imagem e os efeitos ficam) */
+.image-card-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo da imagem em si */
+.image-card-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Faz a imagem cobrir o container sem distorcer */
+  display: block;
+  border-radius: 12px; /* Ajusta os cantos da imagem */
+}
+
+/* Efeitos de fade nas laterais da imagem */
+.image-card-fade-left,
+.image-card-fade-right {
+  position: absolute;
+  top: 0;
+  width: 20%; /* Largura da área de fade */
+  height: 100%;
+  pointer-events: none; /* Permite interações com a imagem por baixo */
+}
+
+.image-card-fade-left {
+  left: 0;
+  /* Gradiente escuro da esquerda para a direita (transparente) */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), transparent); 
+}
+
+.image-card-fade-right {
+  right: 0;
+  /* Gradiente escuro da direita para a esquerda (transparente) */
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.8), transparent); 
+}
+
+/* Efeito de forma na parte inferior da imagem */
+.image-card-bottom-shape {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 00%; /* Altura da área do efeito inferior */
+  background-color: #1a1a1a; /* Cor de fundo para a forma inferior */
+  border-radius: 0 0 12px 12px; /* Arredonda apenas os cantos inferiores */
+}
+
+/* Shape 1: Borda reta (padrão) */
+.image-card-bottom-shape.shape-1 {
+  /* Nenhuma clip-path especial, já é um retângulo */
+}
+
+/* Shape 2: Borda inclinada */
+.image-card-bottom-shape.shape-2 {
+  /* Define um polígono para cortar a forma */
+  clip-path: polygon(0 25%, 100% 0%, 100% 100%, 0% 100%);
+  background-color: #2a2a2a; /* Cor ligeiramente diferente para variação */
+}
+
+/* Shape 3: Borda ondulada sutil */
+.image-card-bottom-shape.shape-3 {
+  /* Polígono com múltiplos pontos para criar uma onda */
+  clip-path: polygon(
+    0% 30%,    /* Esquerda, ponto inicial da onda */
+    10% 40%,
+    20% 30%,
+    30% 40%,
+    40% 30%,
+    50% 40%,
+    60% 30%,
+    70% 40%,
+    80% 30%,
+    90% 40%,
+    100% 30%,   /* Direita, ponto final da onda */
+    100% 100%,  /* Canto inferior direito */
+    0% 100%     /* Canto inferior esquerdo */
+  );
+  background-color: #3a3a3a; /* Outra cor para variação */
+}

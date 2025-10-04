@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}@keyframes marquee {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marquee var(--marquee-speed) linear infinite;
+}
+
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  /* Definições de variáveis CSS, podem ser sobrescritas pelo JavaScript */
+  --x: 50%;
+  --y: 50%;
+}
+
+/* Keyframes para a animação da borda brilhante */
+@keyframes glow-border {
+  0% {
+    background-position: 0% 50%;
+    filter: blur(2px);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: blur(8px);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: blur(2px);
+  }
+}
+/*  
+/* Keyframes para a animação de preenchimento.
+   Adaptando para a funcionalidade do JS, a animação de fundo é mais complexa */
+@keyframes ripple-fill-expand {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2); /* Expande para preencher o botão */
+    opacity: 1;
+  }
+}
+
+/* Keyframes para a animação de recuo */
+@keyframes ripple-fill-recede {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Estilo para a borda brilhante do botão no hover */
+.group:hover .relative.inset-0.z-0 {
+  opacity: 1;
+  transform: translate(calc(var(--x) * -1), calc(var(--y) * -1)) scale(2); /* Expande a onda */
+}
+
+/* Para o efeito de borda "neon" (usando um gradiente no pseudo-elemento) */
+.group {
+  background: #161616; /* Fundo escuro do botão */
+  position: relative;
+  z-index: 0;
+}
+
+.group::before {
+  content: '';
+  position: absolute;
+  top: -2px; /* Ajuste para que a borda se estenda além do botão */
+  left: -2px; /* Ajuste para que a borda se estenda além do botão */
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    #FF0000, /* Vermelho vibrante */
+    #FF1493, /* Rosa intenso */
+    #8A2BE2, /* Roxo azulado */
+    #FF1493,
+    #FF0000
+  );
+  background-size: 600% 600%; /* Torna o gradiente grande para animação de movimento */
+  border-radius: inherit; /* Herda o border-radius do botão */
+  z-index: -1;
+  filter: blur(8px); /* Aplica um desfoque para o efeito de brilho */
+  animation: glow-border 20s linear infinite; /* Animação contínua da borda */
+  opacity: 0; /* Inicia invisível */
+  transition: opacity 0.3s ease-in-out; /* Transição suave na opacidade */
+}
+
+.group:hover::before {
+  opacity: 1; /* Torna a borda visível no hover */
+}
+iframe {
+  background-color: #000 !important;
+}

@@ -1,0 +1,20 @@
+/* Adicione isso ao seu arquivo CSS global (por exemplo, globals.css) */
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    /* Move o conteúdo em 50% da sua própria largura. Como duplicamos o conteúdo,
+       isso faz com que uma cópia completa se mova para fora da vista, criando o loop. */
+    transform: translateX(-50%);
+  }
+}
+
+/* Se você não tem um plugin Tailwind para animações customizadas, pode adicionar: */
+/* .animate-scroll-left {
+  animation: scroll-left var(--animation-duration, 30s) linear infinite;
+} */
+
+/* Alternativamente, e a forma recomendada com Tailwind CSS moderno (v3+),
+   é configurar a animação no tailwind.config.js como mostrado abaixo. */

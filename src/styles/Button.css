@@ -1,0 +1,75 @@
+/*
+  Define as variáveis CSS padrão para a posição do holofote.
+  Serão dinamicamente atualizadas pelo JavaScript.
+*/
+:root {
+  --x: 50%; /* Posição X inicial do holofote (centro do botão) */
+  --y: 50%; /* Posição Y inicial do holofote (centro do botão) */
+}
+
+/*
+  Classe customizada para o botão, que define o efeito de holofote dinâmico.
+  - Usa um radial-gradient como background, cujo centro é posicionado por --x e --y.
+  - A cor do holofote é um gradiente em tons de laranja/amarelo/vermelho.
+  - A transição do background-image é essencial para a suavidade.
+*/
+.btn-animated-spotlight {
+  /* Fundo base do botão usando a cor definida no tailwind.config.js */
+  background-color: var(--color-button-base, #1a1a1a); /* Fallback se não configurado no Tailwind */
+  /* Borda inicial usando a cor definida no tailwind.config.js */
+  border: 2px solid var(--color-button-border-base, #6b0000); 
+
+  /*
+    Gradiente radial inicial (holofote transparente):
+    Ele está presente, mas com opacidade 0 para simular um fundo sólido.
+    A transição vai de transparente para visível no hover.
+  */
+  background-image: radial-gradient(
+    circle at var(--x) var(--y),
+    var(--color-spotlight-center, rgba(255, 200, 0, 0)) 0%,    /* Amarelo/Laranja Transparente */
+    var(--color-spotlight-mid, rgba(255, 69, 0, 0)) 15%,      /* Laranja-avermelhado Transparente */
+    var(--color-spotlight-blend, rgba(26, 26, 26, 0)) 80%     /* Mistura Transparente */
+  );
+  background-size: 250% 250%; /* Tamanho maior para o gradiente expandir */
+  
+  /* Transição suave para o background-image, border-color e background-color */
+  transition: background-image 0.3s ease-out, border-color 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+/*
+  Estado de hover para o botão:
+  - A borda fica mais vibrante.
+  - O holofote se torna visível com as cores fiéis ao vídeo.
+*/
+.btn-animated-spotlight:hover {
+  /* Borda vermelha intensa */
+  border-color: var(--color-button-border-hover, #ff1a1a);
+
+  background-image: radial-gradient(
+    circle at var(--x) var(--y),
+    rgba(255, 0, 0, 1) 0%,             /* Centro: vermelho puro e vivo */
+    rgba(255, 60, 60, 0.9) 25%,        /* Vermelho mais claro */
+    rgba(255, 255, 255, 0.85) 50%,     /* Branco luminoso em volta */
+    rgba(180, 0, 0, 0.5) 75%,          /* Vermelho escuro externo */
+    rgba(20, 0, 0, 0.85) 100%          /* Fundo escuro */
+  );
+
+  /* Transições suaves */
+  transition: background-image 0.6s ease, 
+              border-color 0.4s ease, 
+              box-shadow 0.5s ease;
+
+  /* Glow neon em camadas */
+  box-shadow: 
+    0 0 25px rgba(255, 0, 0, 0.8),
+    0 0 50px rgba(255, 60, 60, 0.6),
+    0 0 80px rgba(255, 255, 255, 0.3);
+}
+
+
+
+/* Garante que o texto dentro do botão esteja acima do efeito de fundo */
+.btn-animated-spotlight > span {
+  position: relative;
+  z-index: 2;
+}

@@ -1,0 +1,451 @@
+/* src/components/SwiperCarousel/SwiperCarousel.module.css */
+
+/* ------------------------------------------- */
+/* CONTAINER PRINCIPAL E BACKGROUND COM BLUR   */
+/* ------------------------------------------- */
+.mainContainer {
+  position: relative;
+  width: 100%;
+  min-height: 100vh; /* Ocupa a altura total da viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Esconde qualquer transbordamento do blur */
+  padding: 40px; /* AUMENTA A ESCALA do padding geral */
+  box-sizing: border-box;
+}
+
+/* Camada de fundo com imagem, blur e escurecimento */
+.backgroundBlur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(90px) brightness(0.25); /* Blur mais forte e um pouco mais escuro */
+  transform: scale(1.25); /* AUMENTA A ESCALA para esconder as bordas borradas ainda mais */
+  transition: background-image 0.5s ease-in-out, filter 0.5s ease-in-out; /* Transição suave */
+  z-index: 1; /* Garante que fique atrás do conteúdo */
+}
+
+/* ------------------------------------------- */
+/* WRAPPER DO CONTEÚDO (TEXTO + CARROSSEL)     */
+/* ------------------------------------------- */
+.contentWrapper {
+  position: relative; /* Garante que o conteúdo fique acima do background */
+  z-index: 20; /* Prioridade maior que o background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1700px; /* AUMENTA A ESCALA da largura máxima para o conteúdo */
+  width: 95%; /* Largura responsiva */
+  padding: 4rem 0; /* AUMENTA A ESCALA do padding */
+  color: white; /* Cor do texto sobre o fundo escuro */
+  text-align: center;
+  margin: 0 auto; /* Centraliza o wrapper */
+}
+
+.galleryTitle {
+  font-size: 5rem; /* AUMENTA A ESCALA do tamanho da fonte */
+  margin-bottom: 2.5rem; /* AUMENTA A ESCALA da margem */
+  font-weight: 700;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* Sombra mais intensa */
+}
+
+.galleryDescription {
+  font-size: 1.7rem; /* AUMENTA A ESCALA do tamanho da fonte */
+  margin-bottom: 5rem; /* AUMENTA A ESCALA da margem */
+  max-width: 1100px; /* AUMENTA A ESCALA da largura máxima */
+  line-height: 1.7; /* Aumenta um pouco o espaçamento de linha */
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6); /* Sombra mais intensa */
+}
+
+.noImagesText {
+  font-size: 2rem; /* AUMENTA A ESCALA do tamanho da fonte */
+  color: #ccc;
+  margin-top: 70px; /* AUMENTA A ESCALA da margem */
+}
+
+/* ------------------------------------------- */
+/* WRAPPER PARA SWIPER E THUMBNAILS            */
+/* ------------------------------------------- */
+.swiperAndThumbsWrapper {
+  display: flex;
+  justify-content: center; /* Centraliza o sistema completo */
+  align-items: center;
+  gap: 50px; /* AUMENTA A ESCALA do espaço entre os thumbnails e o Swiper principal */
+  width: 100%;
+  max-width: 1500px; /* AUMENTA A ESCALA da largura do conjunto carrossel + thumbs */
+}
+
+/* ------------------------------------------- */
+/* SWIPER DE THUMBNAILS (PREVIEWER)            */
+/* ------------------------------------------- */
+.thumbsSwiper {
+  width: 200px; /* AUMENTA A ESCALA da largura para os thumbnails verticais */
+  height: 750px; /* AUMENTA A ESCALA da altura para alinhar com o Swiper principal */
+  box-sizing: border-box;
+  padding: 25px 0; /* AUMENTA A ESCALA do padding */
+  margin: 0; /* Remove margens padrão */
+  z-index: 25; /* Acima do background */
+}
+
+.thumbSlide {
+  width: 100%; /* Thumbnails preenchem a largura do seu slide */
+  height: 140px; /* AUMENTA A ESCALA da altura fixa para cada thumbnail */
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 0.75rem; /* AUMENTA LEVEMENTE a borda arredondada */
+  overflow: hidden; /* Esconde o que transborda da imagem */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* AUMENTA A SOMBRA para os thumbs */
+}
+
+.thumbSlide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta a imagem para cobrir o thumb */
+}
+
+.thumbSlide.swiper-slide-thumb-active {
+  opacity: 1;
+  transform: scale(1.12); /* AUMENTA O PEQUENO ZOOM no thumbnail ativo */
+  border: 5px solid #F04E23; /* AUMENTA A BORDA destacada para o ativo */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8); /* AUMENTA A SOMBRA */
+}
+
+/* ------------------------------------------- */
+/* SWIPER PRINCIPAL                            */
+/* ------------------------------------------- */
+.swiperContainer {
+  width: 80%; /* AUMENTA A ESCALA da porcentagem do espaço disponível */
+  max-width: 1100px; /* AUMENTA A ESCALA da largura máxima para o carrossel principal */
+  height: 800px; /* AUMENTA A ESCALA da altura fixa para o carrossel principal */
+  position: relative;
+  z-index: 25; /* Acima do background */
+  padding: 0 80px; /* AUMENTA A ESCALA do espaço para as setas de navegação */
+}
+
+/* Estilo base para cada slide (inclui o className={styles.swiperSlideCustom}) */
+.swiperSlideCustom {
+  position: relative; /* ESSENCIAL PARA POSICIONAR O TÍTULO SOBRE A IMAGEM */
+  background-position: center;
+  background-size: cover;
+  width: 500px; /* AUMENTA A ESCALA da largura Padrão para os slides */
+  height: 600px; /* AUMENTA A ESCALA da altura Padrão para os slides */
+  border-radius: 1.5rem; /* AUMENTA AS BORDAS mais arredondadas */
+  overflow: hidden; /* Garante que a imagem não saia */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8); /* AUMENTA A ESCALA da sombra para profundidade */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* A imagem dentro de cada slide */
+.swiperSlideCustom img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cobre o slide sem distorcer, cortando se necessário */
+  user-select: none;
+  pointer-events: none; /* Impede arrastar a imagem em vez do Swiper */
+}
+
+/* Estilo para o título da imagem */
+.imageTitleOverlay {
+  position: absolute;
+  bottom: 0; /* Posiciona na parte inferior */
+  left: 0;
+  width: 100%;
+  padding: 20px; /* Padding interno */
+  color: white; /* Cor branca */
+  font-size: 2.2rem; /* Tamanho da fonte */
+  font-weight: 600; /* Peso da fonte */
+  text-align: center;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)); /* Gradiente para escurecer o fundo do texto */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Pequeno blur branco */
+  z-index: 15; /* Acima da imagem, mas abaixo das setas e paginação */
+  pointer-events: none; /* Garante que o texto não interfira na interação do Swiper */
+  line-height: 1.3;
+}
+
+
+/* ------------------------------------------- */
+/* EFEITOS DO COVERFLOW (Classes internas do Swiper) */
+/* ------------------------------------------- */
+.swiper-slide {
+  transform: scale(0.85); /* AUMENTA A ESCALA base para slides não ativos */
+  transition: transform 0.6s ease; /* Transição suave para o efeito */
+}
+
+.swiper-slide-active {
+  transform: scale(1.08); /* Slide ativo LIGEIRAMENTE MAIOR que o normal */
+  z-index: 10;
+}
+
+.swiper-slide-prev,
+.swiper-slide-next {
+  transform: scale(0.92); /* Slides adjacentes LIGEIRAMENTE MAIORES */
+  z-index: 5;
+}
+
+/* ------------------------------------------- */
+/* CONTROLES DE NAVEGAÇÃO (SETAS)              */
+/* ------------------------------------------- */
+.sliderControler {
+  position: absolute;
+  top: 50%; /* Centraliza verticalmente os controles */
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 30; /* Garante que as setas fiquem sobre tudo */
+  pointer-events: none; /* Permite clicar através do wrapper se não houver filhos */
+}
+
+.sliderArrow {
+  background-color: #F04E23; /* Cor de destaque para as setas */
+  width: 75px; /* AUMENTA A ESCALA da largura */
+  height: 75px; /* AUMENTA A ESCALA da altura */
+  border-radius: 50%; /* Botões redondos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-size: 2.5rem; /* AUMENTA A ESCALA do tamanho do ícone */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* AUMENTA A ESCALA da sombra */
+  pointer-events: all; /* Habilita cliques nos botões */
+}
+
+.sliderArrow:hover {
+  background-color: #D63E17; /* Cor de hover */
+  transform: scale(1.2); /* AUMENTA A ESCALA do efeito de zoom no hover */
+}
+
+/* Posicionamento específico para as setas */
+.swiperButtonPrev {
+  position: absolute;
+  left: -40px; /* AUMENTA A ESCALA do deslocamento para a esquerda do SwiperContainer */
+}
+
+.swiperButtonNext {
+  position: absolute;
+  right: -40px; /* AUMENTA A ESCALA do deslocamento para a direita do SwiperContainer */
+}
+
+/* Estilo para botões desativados */
+.swiper-button-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: #888; /* Cor para desativado */
+  box-shadow: none;
+}
+
+/* ------------------------------------------- */
+/* PAGINAÇÃO VERTICAL (PONTINHOS)              */
+/* ------------------------------------------- */
+.swiperPagination {
+  position: absolute;
+  right: -90px; /* Posicionamento padrão à direita para telas grandes */
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto !important;
+  width: auto !important;
+  display: flex;
+  flex-direction: column; /* Pontinhos verticalmente para telas grandes */
+  gap: 15px;
+  z-index: 30;
+  pointer-events: all; /* Habilita cliques nos pontinhos */
+}
+
+.swiperPagination .swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+  background-color: white; /* Cor padrão do pontinho */
+  opacity: 0.5;
+  border-radius: 50%;
+  margin: 0 !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.swiperPagination .swiper-pagination-bullet-active {
+  background-color: #F04E23; /* Cor do pontinho ativo */
+  width: 20px;
+  height: 20px;
+  opacity: 1;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.7);
+}
+
+
+/* ------------------------------------------- */
+/* MEDIA QUERIES PARA RESPONSIVIDADE           */
+/* ------------------------------------------- */
+
+/* Tablets e Laptops menores (ex: 1200px a 769px) */
+@media (max-width: 1200px) {
+  .galleryTitle {
+    font-size: 4rem;
+  }
+  .galleryDescription {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+  }
+  .swiperAndThumbsWrapper {
+    flex-direction: column; /* Empilha thumbnails e Swiper principal */
+    gap: 30px;
+  }
+  .thumbsSwiper {
+    width: 90%; /* Thumbnails ocupam quase toda a largura */
+    height: 160px; /* Altura para thumbnails horizontais */
+    order: 2; /* Move os thumbnails para baixo do Swiper principal */
+    padding: 0 25px; /* Padding horizontal */
+  }
+  .thumbsSwiper .swiper-wrapper {
+    flex-direction: row !important; /* Garante que os thumbs fiquem horizontais */
+  }
+  .thumbSlide {
+    height: 120px;
+    width: 150px; /* Largura específica para thumbs */
+  }
+
+  .swiperContainer {
+    width: 95%; /* Swiper principal ocupa mais largura */
+    height: 600px;
+    order: 0; /* Swiper principal acima dos thumbnails */
+    padding: 0 20px; /* Padding para as setas */
+  }
+  .swiperSlideCustom {
+    width: 420px;
+    height: 520px;
+  }
+  .imageTitleOverlay {
+    font-size: 1.8rem;
+    padding: 15px;
+  }
+  .swiperButtonPrev {
+    left: 10px; /* Ajusta a posição das setas */
+  }
+  .swiperButtonNext {
+    right: 10px; /* Ajusta a posição das setas */
+  }
+  .swiperPagination {
+    right: auto;
+    bottom: 35px; /* Paginação para a parte inferior */
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row; /* Paginação horizontal */
+    gap: 12px;
+  }
+}
+
+/* Celulares grandes e tablets pequenos (ex: 768px e menores) */
+@media (max-width: 768px) {
+  .galleryTitle {
+    font-size: 3.5rem;
+  }
+  .galleryDescription {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+  .mainContainer {
+    min-height: 90vh;
+    padding: 20px;
+  }
+  .swiperContainer {
+    height: 500px;
+    padding: 0 10px; /* Reduz padding lateral, deixando espaço para a paginação na esquerda */
+  }
+  .swiperSlideCustom {
+    width: 350px;
+    height: 430px;
+    border-radius: 0.9rem;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+  }
+  .imageTitleOverlay {
+    font-size: 1.5rem;
+    padding: 12px;
+  }
+
+  /* OCULTA AS SETAS DE NAVEGAÇÃO */
+  .sliderArrow {
+    display: none;
+  }
+  .swiperButtonPrev,
+  .swiperButtonNext {
+    display: none;
+  }
+
+  /* OCULTA O SWIPER DE THUMBNAILS */
+  .thumbsSwiper {
+    display: none;
+  }
+
+  /* POSICIONA A PAGINAÇÃO NA ESQUERDA, VERTICALMENTE */
+  .swiperPagination {
+    position: absolute; /* Ajusta o posicionamento para ser relativo ao SwiperContainer */
+    left: -20px; /* Move para a esquerda do SwiperContainer */
+    right: auto; /* Desativa o posicionamento à direita */
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column; /* Garante que os pontinhos fiquem verticais */
+    gap: 10px;
+  }
+
+  /* Para que a paginação apareça sobre o conteúdo, pode ser necessário ajustar o z-index */
+  .swiperPagination .swiper-pagination-bullet {
+    width: 14px;
+    height: 14px;
+  }
+  .swiperPagination .swiper-pagination-bullet-active {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Celulares pequenos (ex: 480px e menores) */
+@media (max-width: 480px) {
+  .galleryTitle {
+    font-size: 3rem;
+  }
+  .galleryDescription {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  .swiperContainer {
+    height: 420px;
+    padding: 0 5px; /* Menos padding ainda para a paginação */
+  }
+  .swiperSlideCustom {
+    width: 300px;
+    height: 380px;
+    border-radius: 0.7rem;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.55);
+  }
+  .imageTitleOverlay {
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+
+  /* Paginação para celulares muito pequenos */
+  .swiperPagination {
+    left: -15px; /* Ajusta mais para a esquerda */
+    gap: 8px; /* Reduz o espaço entre os pontinhos */
+  }
+  .swiperPagination .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+  }
+  .swiperPagination .swiper-pagination-bullet-active {
+    width: 14px;
+    height: 14px;
+  }
+}
